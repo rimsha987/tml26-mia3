@@ -1,0 +1,10 @@
+# data & model artifacts (never commit large files)
+*.npz
+*.pt
+runlogs/
+__pycache__/
+*.pyc
+*.aux
+*.log
+*.out
+*.synctex.gz

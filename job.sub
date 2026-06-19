@@ -1,0 +1,19 @@
+# HTCondor submit file (Saarland HPC). Replace <USERNAME> with your team account.
+# Reproduces the best leaderboard model.
+universe       = docker
+docker_image   = pytorch/pytorch:2.3.1-cuda12.1-cudnn8-devel
+executable     = /opt/conda/bin/python
+arguments      = /home/<USERNAME>/tml26-mia3/train2.py --arch resnet50 --method pgd --cosine 1 --ls 0.1 --ema 0.999 --epochs 200 --batch 192 --out model_best.pt
+output         = runlogs/best.$(ClusterId).$(ProcId).out
+error          = runlogs/best.$(ClusterId).$(ProcId).err
+log            = runlogs/best.$(ClusterId).log
+stream_output  = True
+stream_error   = True
+should_transfer_files = YES
+request_GPUs   = 1
+request_CPUs   = 4
+request_memory = 24G
+requirements   = UidDomain == "cs.uni-saarland.de"
++WantGPUHomeMounted = true
++WantScratchMounted = true
+queue 1
